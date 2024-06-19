@@ -1,0 +1,28 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Имя кота {{ name }}</h1>
+<p>Возраст {{ age }}</p>
+<p>Сытость {{ satiety }}</p>
+<p>Счастье {{ happiness }}</p>
+<img src="{% static avatar %}" alt="">
+
+<form action="/cat-stats/" method="post">
+    {% csrf_token %}
+    <select name="action" id="action">
+        <option value="play">Играть</option>
+        <option value="feed">Кормить</option>
+        <option value="sleep">Спать</option>
+    </select>
+    <button type="submit">выбрать</button>
+</form>
+</body>
+</html>

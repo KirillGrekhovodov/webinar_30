@@ -1,8 +1,8 @@
 from django.urls import path
 
-from webapp.views import index, about
+from webapp.views import index, cat_stats
 
 urlpatterns = [
     path('', index),
-    path('about/', about),
+    path('cat-stats/', cat_stats),
 ]

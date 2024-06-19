@@ -1,11 +1,36 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+
+from webapp.cat import Cat
+
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, "index.html")
+    if request.method == "GET":
+        return render(request, "index.html")
+    else:
+        Cat.name = request.POST.get("cat_name")
+        return HttpResponseRedirect("/cat-stats/")
 
 
-def about(request):
-    return render(request, "about.html")
+def cat_stats(request):
+    if request.method == "GET":
+        context = {
+            "name": Cat.name,
+            "age": Cat.age,
+            "avatar": Cat.avatar,
+            "satiety": Cat.satiety,
+            "happiness": Cat.happiness
+        }
+        return render(request, "stats.html", context)
+    else:
+        action = request.POST.get("action")
+        if action == "play":
+            Cat.play()
+        elif action == "sleep":
+            pass
+        else:
+            pass
+        return HttpResponseRedirect("/cat-stats/")
